@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <bits/stdc++.h>
 using namespace std;
 #define all(v)          ((v).begin()), ((v).end())
@@ -23,24 +23,25 @@ void run(){
 #endif
 
 }
+int arr[50], n,d;
 int main() {
 	fast
-		int n;
-	while (cin >> n&&n){
-		map<vector<int>, int>mp;
-		int mx = 0;
-		while (n--){
-			vector<int>arr(5);
-			for (int i = 0; i < 5; i++)cin >> arr[i];
-			sort(all(arr));
-			mp[arr]++;
-			mx = max(mx, mp[arr]);
+	while (cin >> d >> n){
+		int x = 0, mx = 0,ans=0;
+		for (int i = 0; i < n; i++)cin >> arr[i];
+		for (int i = 0; i < (1 << n); i++){
+			int sum = 0;
+			for (int j = 0; j < n; j++){
+				if (i&(1 << j))sum += arr[j];
+			}
+			if (sum <= d){
+				if (sum>=ans)ans = sum, x = i;
+			}
 		}
-		int ans = 0;
-		for (auto i : mp){
-			if (i.second == mx)ans += mx;
+		for (int i = 0; i < n; i++){
+			if (x&(1 << i))cout << arr[i] << " ";
 		}
-		cout << ans << endl;
+		cout << "sum:" << ans << endl;
 	}
 	stop();
 	return 0;
